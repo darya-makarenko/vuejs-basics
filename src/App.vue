@@ -1,7 +1,7 @@
 <<template>
   <div id="app" class="small-container">
     <h1>Employees</h1>
-    <employee-table :employees="employees" />
+    <employee-table :employees="employees" @delete:employee="deleteEmployee" />
 
     <h1>Register new employee</h1>
     <employee-form @add:employee="addEmployee" />
@@ -27,6 +27,11 @@
         const id = lastId + 1;
         const newEmployee = { ...employee, id };
         this.employees = [...this.employees, employee];
+      },
+      deleteEmployee(id) {
+        this.employees = this.employees.filter(
+          employee => employee.id !== id
+        )
       }
     },
     data() {
