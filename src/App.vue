@@ -1,7 +1,11 @@
 <<template>
-  <div id="app" class="small-container">
+  <div id="app" class="medium-container">
     <h1>Employees</h1>
-    <employee-table :employees="employees" @delete:employee="deleteEmployee" />
+    <employee-table 
+      :employees="employees" 
+      @delete:employee="deleteEmployee" 
+      @edit:employee="editEmployee"
+    />
 
     <h1>Register new employee</h1>
     <employee-form @add:employee="addEmployee" />
@@ -31,6 +35,11 @@
       deleteEmployee(id) {
         this.employees = this.employees.filter(
           employee => employee.id !== id
+        )
+      },
+      editEmployee(id, updatedEmployee) {
+        this.employees = this.employees.map(employee =>
+          employee.id === id ? updatedEmployee : employee
         )
       }
     },
